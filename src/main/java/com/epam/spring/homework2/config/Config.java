@@ -44,17 +44,18 @@ public class Config {
     @Bean
     @Lazy
     public BeanF beanF(){
-        return  new BeanF("F",6);
+        return  new BeanF("BeanF",6);
     }
 
     @Bean
+    @DependsOn("beanD")
     public BeanA beanA(){
-        return  new BeanA("aaa",-343333);
+        return  new BeanA("BeanA",-343333);
     }
 
     @Bean
     public BeanE beanE(){
-        return  new BeanE("asdasdasd", 123123);
+        return  new BeanE("BeanE", 123123);
     }
 
 }
