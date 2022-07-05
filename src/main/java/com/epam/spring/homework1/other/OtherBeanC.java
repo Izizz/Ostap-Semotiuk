@@ -8,11 +8,9 @@ import org.springframework.stereotype.Component;
 public class OtherBeanC {
 
     @Autowired
-    private BeanC bean ;
+    private BeanC bean;
 
-    public OtherBeanC(){
+    public OtherBeanC() {
         System.out.println(bean);
     }
-
-
 }

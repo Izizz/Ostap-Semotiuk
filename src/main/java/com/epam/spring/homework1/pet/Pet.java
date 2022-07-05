@@ -8,16 +8,16 @@ import java.util.List;
 @Component
 public class Pet implements Animal {
 
-    @Autowired
     private List<Animal> animals;
 
-    public Pet(List<Animal> animals){
+    @Autowired
+    public Pet(List<Animal> animals) {
         this.animals = animals;
     }
 
-    public void printPets(){
+    public void printPets() {
         for(Animal e: animals)
-            System.out.println(e.getClass().getSimpleName() );
+            System.out.println(e.getClass().getSimpleName());
     }
 
 }
