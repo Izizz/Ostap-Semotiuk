@@ -6,4 +6,5 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(2)
 public class Cat implements Animal {
+
 }

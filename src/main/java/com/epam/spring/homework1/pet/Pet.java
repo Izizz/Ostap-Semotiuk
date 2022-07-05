@@ -15,9 +15,10 @@ public class Pet implements Animal {
         this.animals = animals;
     }
 
-    public void printPets() {
+    public void printPets(){
         for(Animal e: animals)
-            System.out.println(e.getClass().getSimpleName());
+            System.out.println(e.getClass().getSimpleName() );
+
     }
 
 }
