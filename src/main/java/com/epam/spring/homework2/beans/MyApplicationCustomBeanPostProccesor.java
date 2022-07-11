@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 public class MyApplicationCustomBeanPostProccesor implements BeanPostProcessor {
 
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if(bean instanceof BEAN){
-            if(((BEAN) bean).getName() != null && ((BEAN) bean).getValue() >= 0 ){
-                System.out.println( ((BEAN) bean).getName() + " ->Is valid");
+        if(bean instanceof BeanMain){
+            if(((BeanMain) bean).getName() != null && ((BeanMain) bean).getValue() >= 0 ){
+                System.out.println( ((BeanMain) bean).getName() + " ->Is valid");
             }
             else {
-                System.out.println(((BEAN) bean).getName() + " ->Is invalid");
+                System.out.println(((BeanMain) bean).getName() + " ->Is invalid");
             }
         }
         return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);

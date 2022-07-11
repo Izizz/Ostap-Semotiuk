@@ -6,20 +6,18 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component
-public class BeanE extends BEAN  {
+public class BeanE extends BeanMain {
 
     public BeanE(String name, int value) {
        super(name,value);
     }
 
-
-
     @PostConstruct
-    public void postConstruct(){
+    public void postConstruct() {
         System.out.println("BeanE -> PostConstruct method");
     }
     @PreDestroy
-    public void preDestroy(){
+    public void preDestroy() {
         System.out.println("Bean -> PreDestroy method");
     }
 }
