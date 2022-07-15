@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Api(tags = "Order management API")
@@ -21,18 +22,18 @@ public interface OrderApi {
     List<OrderDto> getAllOrders();
 
     @ApiOperation("get user order")
-    @ApiImplicitParam(name = "id" , paramType = "path", required = true, value = "user id")
+    @ApiImplicitParam(name = "id", paramType = "path", required = true, value = "user id")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{id}")
-    OrderDto getUserOrder(@PathVariable  int id);
+    OrderDto getUserOrder(@PathVariable int id);
 
     @ApiOperation("create order")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/")
-    OrderDto createOrder(@RequestBody @Validated(OnCreate.class) OrderDto orderDto) ;
+    OrderDto createOrder(@RequestBody @Validated(OnCreate.class) OrderDto orderDto);
 
     @ApiOperation("update order")
-    @ApiImplicitParam(name = "id" , paramType = "path", required = true, value = "user id")
+    @ApiImplicitParam(name = "id", paramType = "path", required = true, value = "user id")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{id}")
     OrderDto updateOrder(@PathVariable int id, @RequestBody @Validated(OnUpdate.class) OrderDto orderDto);
