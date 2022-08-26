@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class OrderRepositoryImpl implements OrderRepository {
     private final List<Order> list = new ArrayList<>();
 
