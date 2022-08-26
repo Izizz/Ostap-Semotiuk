@@ -13,30 +13,31 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@Requestmapping("/order")
 public class OrderController {
     private final OrderService orderService;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/orders")
+    @GetMapping
     public List<OrderDto> getAllOrders() {
         return orderService.getOrders();
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/order/{id}")
+    @GetMapping(value = "/{id}")
     public OrderDto getUser(@PathVariable int id) {
         return orderService.getOrderInfo(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/order")
+    @PostMapping
     public OrderDto createOrder(@RequestBody OrderDto orderDto) {
         log.info("Order to add->" + orderDto.getRequestId());
         return orderService.createOrder(orderDto);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value = "/order/{id}")
+    @PutMapping(value = "/{id}")
     public OrderDto updateOrder(@PathVariable int id, @RequestBody OrderDto orderDto) {
         return orderService.updateOrder(id, orderDto);
     }
