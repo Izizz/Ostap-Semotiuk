@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDto {
-    int requestId;
-    int  user_id;
-    String requestDescr;
-    String master;
-    double price;
-    String feedback;
-    String status;
+   public int requestId;
+   public int user_id;
+   public String requestDescr;
+   public String master;
+   public double price;
+   public String feedback;
+   public String status;
 
 }
