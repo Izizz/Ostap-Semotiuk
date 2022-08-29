@@ -31,7 +31,6 @@ public class ErrorHandlingController {
     }
 
 
-
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Error handleUserException(UserException ex, HandlerMethod hm) {

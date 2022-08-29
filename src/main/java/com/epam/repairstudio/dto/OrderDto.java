@@ -1,7 +1,6 @@
 package com.epam.repairstudio.dto;
 
 
-
 import com.epam.repairstudio.dto.group.OnCreate;
 import com.epam.repairstudio.dto.group.OnUpdate;
 import com.epam.repairstudio.model.User;

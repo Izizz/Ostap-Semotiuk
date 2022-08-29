@@ -5,7 +5,7 @@ import com.epam.repairstudio.model.enums.ErrorType;
 public class UserException extends ServiceException {
     private static final String DEFAULT_MESSAGE = "User not found";
 
-    public UserException() {
+    public UserException(String message) {
         super(DEFAULT_MESSAGE);
     }
 

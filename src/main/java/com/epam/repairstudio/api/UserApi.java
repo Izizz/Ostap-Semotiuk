@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -26,16 +25,25 @@ public interface UserApi {
     @GetMapping(value = "/{email}")
     UserDto getUser(@PathVariable String email);
 
+    @ApiImplicitParam(name = "role", paramType = "path", required = true, value = "User role")
+    @ApiOperation("Get User by Role")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "role/{role}")
+    UserDto getByRole(@PathVariable String role);
+
     @ApiOperation("Create user")
     @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
     @PostMapping
     UserDto createUser(@Validated(OnCreate.class) @RequestBody UserDto userDto);
 
     @ApiOperation("Get all users")
     @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     @GetMapping("/")
-    Page<UserDto> getAll(@RequestParam("pageSize") int pageSize, @RequestParam("pageNumber") int pageNumber,
-                         @RequestParam("sortType") String sortType);
+    Page<UserDto> getAll(
+            @RequestParam("pageSize") int pageSize, @RequestParam("pageNumber") int pageNumber,
+            @RequestParam("sortType") String sortType);
 
     @ApiOperation("Delete user")
     @ApiImplicitParam(name = "id", paramType = "path", required = true, value = "User id")
@@ -49,13 +57,8 @@ public interface UserApi {
     @ApiOperation("Update entity by Id")
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
+    @ResponseBody
     UserDto updateById(@PathVariable long id, @RequestBody @Validated(OnUpdate.class) UserDto userDto);
 
-
-    @ApiImplicitParam(name = "role", paramType = "path", required = true, value = "User role")
-    @ApiOperation("Get User by Role")
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "role/{role}")
-    UserDto getByRole(@PathVariable String role);
 
 }

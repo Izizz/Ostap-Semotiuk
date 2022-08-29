@@ -1,2 +1,4 @@
-package com.epam.repairstudio.controller;public class ErrorHndlingControllerTest {
+package com.epam.repairstudio.controller;
+
+public class ErrorHndlingControllerTest {
 }

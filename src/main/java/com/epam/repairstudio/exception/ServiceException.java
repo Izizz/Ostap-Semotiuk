@@ -1,4 +1,5 @@
 package com.epam.repairstudio.exception;
+
 import com.epam.repairstudio.model.enums.ErrorType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

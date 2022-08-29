@@ -1,8 +1,8 @@
 package com.epam.repairstudio.service.impl;
 
 
-
 import com.epam.repairstudio.dto.UserDto;
+import com.epam.repairstudio.exception.UserException;
 import com.epam.repairstudio.mapper.UserMapper;
 import com.epam.repairstudio.model.User;
 import com.epam.repairstudio.repository.UserRepository;
@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 @Slf4j
@@ -24,22 +26,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getByEmail(String email) {
         log.info("getUser by email {}", email);
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException(
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UserException(
                 "User not found with email " + email));
         return UserMapper.INSTANCE.mapUserToUserDto(user);
     }
 
-    @Override
-    public UserDto topUpBalance(long id, double balance) {
-        log.info("Top up balance for user with id {} ", id);
-        User user =  userRepository
-                .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id " +  id));
-        user.setBalance(user.getBalance() + balance);
-        User updatedUser = userRepository.save(user);
-        return UserMapper.INSTANCE.mapUserToUserDto(updatedUser);
-
-    }
 
     @Override
     public boolean existsByEmail(String email) {
@@ -50,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(Long id) {
-        log.info("Getting user with id {}",id);
+        log.info("Getting user with id {}", id);
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
         return UserMapper.INSTANCE.mapUserToUserDto(user);
@@ -66,32 +57,44 @@ public class UserServiceImpl implements UserService {
     public UserDto create(UserDto dto) {
         log.info("Creating user with id {}", dto.getId());
         User user = UserMapper.INSTANCE.mapUserDtoToUser(dto);
-        user = userRepository.save(user);
+        if (!existsByEmail(dto.getEmail())) {
+            user = userRepository.save(user);
+        } else {
+            throw new EntityExistsException();
+        }
         return UserMapper.INSTANCE.mapUserToUserDto(user);
     }
+
 
     @Override
     public UserDto updateById(Long id, UserDto dto) {
         log.info("Updating user with id {}", dto.getId());
-        if (!userRepository.existsById(id)) {
-            throw new EntityNotFoundException("User not found with id " + dto.getId());
-        }
-        User user = UserMapper.INSTANCE.mapUserDtoToUser(dto);
-        user = userRepository.save(user);
-        return UserMapper.INSTANCE.mapUserToUserDto(user);
+        User persistedUser = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
+                "User not found with id " + id));
+        User updatedUser = UserMapper.INSTANCE.updateUser(persistedUser, UserMapper.INSTANCE.mapUserDtoToUser(dto));
+        User oldUser = userRepository.save(updatedUser);
+        return UserMapper.INSTANCE.mapUserToUserDto(oldUser);
     }
 
     @Override
     public void deleteById(Long id) {
-        log.info("Deleting user with id " + id );
+        log.info("Deleting user with id " + id);
         userRepository.deleteById(id);
+    }
 
+
+    @Override
+    public void deleteUser(String email) {
+        log.info("Deleting user with email " + email);
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        userRepository.delete(user);
     }
 
     @Override
-    public UserDto getByRole(String role){
+    public UserDto getByRole(String role) {
         User user = userRepository.findByRole(role)
                 .orElseThrow(() -> new EntityNotFoundException("User not found with role " + role));
         return UserMapper.INSTANCE.mapUserToUserDto(user);
     }
 }
+

@@ -1,8 +1,6 @@
 package com.epam.repairstudio.dto;
 
 
-
-
 import com.epam.repairstudio.dto.group.OnCreate;
 import com.epam.repairstudio.dto.group.OnUpdate;
 import com.epam.repairstudio.validation.ContactnumberConstraint;
@@ -10,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
+
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 
 @Data

@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto getById(Long orderId) {
         log.info("getOrderInfo by ID {}", orderId);
-        Order order = orderRepository.findById(orderId).orElseThrow(()-> new EntityNotFoundException("Order not found with id " + orderId));
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException("Order not found with id " + orderId));
         return OrderMapper.INSTANCE.mapOrderToOrderDto(order);
     }
 
@@ -40,23 +40,22 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto updateById(Long orderId, OrderDto orderDto) {
         log.info("update order with ID {}", orderId);
-        if(!orderRepository.existsById(orderId)){
-            throw  new EntityNotFoundException("Order not found with id " + orderId);
-        }
-        Order order = OrderMapper.INSTANCE.mapOrderDtoToOrder(orderDto);
-        order = orderRepository.save(order);
-        return OrderMapper.INSTANCE.mapOrderToOrderDto(order);
+        Order persistedOrder = orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException(
+                "Order was not found with id : " + orderId));
+        Order updatedOrder = OrderMapper.INSTANCE.updateOrder(persistedOrder, OrderMapper.INSTANCE.mapOrderDtoToOrder(orderDto));
+        Order oldOrder = orderRepository.save(updatedOrder);
+        return OrderMapper.INSTANCE.mapOrderToOrderDto(oldOrder);
     }
 
     @Override
     public Page<OrderDto> getAll(Pageable pageable) {
         log.info("Get all orders");
-    return orderRepository.findAll(pageable).map(OrderMapper.INSTANCE::mapOrderToOrderDto);
+        return orderRepository.findAll(pageable).map(OrderMapper.INSTANCE::mapOrderToOrderDto);
     }
 
     @Override
     public void deleteById(Long id) {
-        log.info("Deleting order with id " + id );
+        log.info("Deleting order with id " + id);
         orderRepository.deleteById(id);
 
     }

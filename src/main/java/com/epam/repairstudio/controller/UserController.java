@@ -1,14 +1,12 @@
 package com.epam.repairstudio.controller;
 
 import com.epam.repairstudio.api.UserApi;
-
 import com.epam.repairstudio.dto.UserDto;
 import com.epam.repairstudio.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,6 +42,7 @@ public class UserController implements UserApi {
     public UserDto updateById(long id, UserDto userDto) {
         return userService.updateById(id, userDto);
     }
+
 
     @Override
     public UserDto getByRole(String role) {

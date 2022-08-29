@@ -3,7 +3,7 @@ package com.epam.repairstudio.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface CrudService<T,I> {
+public interface CrudService<T, I> {
 
     T getById(I id);
 
@@ -14,4 +14,5 @@ public interface CrudService<T,I> {
     T updateById(I id, T dto);
 
     void deleteById(I id);
+
 }

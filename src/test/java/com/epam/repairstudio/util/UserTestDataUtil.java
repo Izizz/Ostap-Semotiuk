@@ -5,12 +5,13 @@ import com.epam.repairstudio.model.User;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class TestDataUtil {
+public class UserTestDataUtil {
+
     public static final String FIRST_NAME = "firstname";
     public static final String LAST_NAME = "lastname";
     public static final String EMAIL = "email@email.com";
     public static final String PASSWORD = "Password123!";
-    public static final String ROLE = "role";
+    public static final String ROLE = "user";
     public static final String PHONE = "+380965443312";
     public static final double BALANCE = 0.00;
     public static final Long ID = 1L;
@@ -41,7 +42,7 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static UserDto createUserDtoUpdate(){
+    public static UserDto createUserDtoUpdate() {
         return UserDto.builder()
                 .id(ID)
                 .firstname(FIRST_NAME)
