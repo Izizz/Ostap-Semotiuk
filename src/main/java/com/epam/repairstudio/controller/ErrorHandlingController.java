@@ -32,9 +32,9 @@ public class ErrorHandlingController {
 
 
     @ExceptionHandler(ServiceException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Error handleUserException(UserException ex, HandlerMethod hm) {
-        log.error("handleUserException: exception: {}, method: {}",
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Error handleUserNotFoundException(UserException ex, HandlerMethod hm) {
+        log.error("handleUserNotFoundException: exception: {}, method: {}",
                 ex.getMessage(), hm.getMethod(), ex);
         return new Error(ex.getMessage(), ex.getErrorType(), LocalDateTime.now());
     }

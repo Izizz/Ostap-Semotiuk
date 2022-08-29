@@ -2,6 +2,7 @@ package com.epam.repairstudio.controller;
 
 import com.epam.repairstudio.config.TestConfig;
 import com.epam.repairstudio.dto.UserDto;
+import com.epam.repairstudio.exception.UserException;
 import com.epam.repairstudio.service.UserService;
 import com.epam.repairstudio.util.UserTestDataUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -136,6 +137,37 @@ public class UserControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.email").value(EMAIL));
+
+    }
+
+    @Test
+    void updateUserNotValidTest() throws Exception {
+        UserDto userDto = UserTestDataUtil.createUserDtoUpdate();
+        userDto.setPhone("2");
+        userDto.setPassword("21");
+
+        when(userService.updateById(eq(ID), any(UserDto.class))).thenReturn(userDto);
+
+        mockMvc.perform(put("/repair-studio/user/" + ID)
+                        .content(objectMapper.writeValueAsString(userDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+
+    }
+
+
+    @Test
+    void updateUserNotFoundTest() throws Exception {
+        UserDto userDto = UserTestDataUtil.createUserDtoUpdate();
+
+        when(userService.updateById(eq(ID), any(UserDto.class))).thenThrow(new UserException("user not found"));
+
+        mockMvc.perform(put("/repair-studio/user/" + ID)
+                        .content(objectMapper.writeValueAsString(userDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isNotFound());
 
     }
 
