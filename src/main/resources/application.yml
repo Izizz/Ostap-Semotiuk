@@ -1,0 +1,39 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-detail: always
+  info:
+    env:
+      enabled: true
+
+info:
+  application:
+    name: "Repair Studio"
+    desription: "Repair Studio web spring project"
+    version: "1.0.0"
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/repair_studio
+    username: root
+    password: ne_pro_100_isys
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  sql:
+    init:
+      mode: always
+
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: create
+      defer-datasource-initialization: true
+
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
