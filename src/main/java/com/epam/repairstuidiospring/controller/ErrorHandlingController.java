@@ -30,12 +30,7 @@ public class ErrorHandlingController {
     }
 
 
-//    @ExceptionHandler(NullPointerException.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public String handleNullPointerException(NullPointerException ex) {
-//        log.error("handleNullPointerException: exception {}", ex.getMessage(), ex);
-//        return ex.getMessage();
-//    }
+
 
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
