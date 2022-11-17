@@ -1,0 +1,22 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-detail: always
+  info:
+    env:
+      enabled: true
+
+info:
+  application:
+    name: "Repair Studio"
+    desription: "Repair Studio web spring project"
+    version: "1.0.0"
+
+#spring:
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
